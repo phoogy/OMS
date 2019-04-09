@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="header.html" %>
+        <%@ include file="/header.html" %>
     </head>
     <body>
         <div class="container">

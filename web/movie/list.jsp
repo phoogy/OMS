@@ -8,11 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="header.html" %>
+        <%@ include file="/header.html" %>
     </head>
     <body>
         <div class="container">
             <h1 class="text-center">Online Movie Store (OMS)</h1>
+            <hr />
+            <a href="/" class="">Home</a>/Movies
             <hr />
             <form class="form-inline">
                 <div class="form-group">
@@ -33,9 +35,8 @@
                       <option value="Thriller">Thriller</option>
                       <option value="Romance">Romance</option>
                   </select>
-                  <input type="password" class="form-control" id="pwd">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <input type="submit" class="btn btn-default" value="Search" />
             </form>
             <hr />
             <table class="table table-condensed table-bordered table-hover">
@@ -48,10 +49,68 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="movieList">
                     
                 </tbody>
             </table>
         </div>
+        <script>
+            
+            var movies = [
+                {Id:1, Title:"Trains", Description:"A movie about Trains", Stock:4, Price:19.99, ActiveStatus:true},
+                {Id:2, Title:"Boats", Description:"A movie about Boats", Stock:2, Price:18.99, ActiveStatus:true},
+                {Id:3, Title:"Cars", Description:"A movie about Cars", Stock:8, Price:19.99, ActiveStatus:false},
+                {Id:4, Title:"Cats", Description:"A movie about Cats", Stock:0, Price:17.99, ActiveStatus:false},
+                {Id:5, Title:"Dogs", Description:"A movie about Dogs", Stock:31, Price:8.99, ActiveStatus:true}
+            ];
+        </script>
+        <script type="text/babel">
+            
+            function MovieRecord(props){
+                return (
+                    <tr>
+                        <td>{props.movie.Id}</td>
+                        <td>{props.movie.Title}</td>
+                        <td>{props.movie.Description}</td>
+                        <td>{props.movie.Stock}</td>
+                        <td>{props.movie.Price}</td>
+                        <td>
+                            <a href={"buy.jsp?movieid=" + props.movie.Url}>Buy</a> 
+                        </td>
+                    </tr>
+                );
+            }
+            
+            function MovieList() {
+                return (
+                        
+                  
+                    movies.forEach(function(movie){
+                        <Welcome Id=movie.Id />
+                    });
+                  </div>
+                );
+              }
+            
+            var movieList;
+            movies.forEach(function(movie){
+                alert(movie.Id);
+                var url = "buy.jsp?movieid="+movie.Id;
+                movieList +=
+                    <tr>
+                        <td>{movie.Id}</td>
+                        <td>{movie.Title}</td>
+                        <td>{movie.Description}</td>
+                        <td>{movie.Stock}</td>
+                        <td>{movie.Price}</td>
+                        <td>
+                            <a href="{url}"> Buy</a> 
+                        </td>
+                    </tr>
+                ;
+            });
+            
+            ReactDOM.render(movieList,document.getElementById("movieList"));    
+        </script>
     </body>
 </html>
