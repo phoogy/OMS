@@ -1,57 +1,48 @@
+<%@page import="MODEL.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="MODEL.controller.*"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="/header.html" %>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Admin Menu</title>
     </head>
+    <%@include file="Header.html" %>
     <body>
-        <div class="container">
-            <h1 class="text-center">Online Movie Store (OMS)</h1>
-            <h3 class="text-center">Your One Stop Spot To Shop Top Movies!</h3>
-            <hr />
-            <div class="row">
-                <div class="col-md-8 col-md-push-2">
-                    <div class="row" id="links">
-                <div class="col-sm-4" id="btn1">
-                    <a href="/movie/list.jsp" class="btn btn-lg btn-block btn-primary">Browse Movies</a>
-                </div>
-                <div class="col-sm-4" id="btn2"></div>
-                <div class="col-sm-4" id="btn3"></div>
-            </div>
-                </div>
-            </div>
+        <%
             
-	</div>
+            String success1 = (String) request.getParameter("success1");
+            String failure1 = (String) request.getParameter("failure1");
+        %>
         
-        <script>
-            function displayBtns()
-            {
-                var btn2 = document.createElement("a");
-                var btn3 = document.createElement("a");
-                btn2.className = btn3.className = "btn btn-lg btn-block btn-primary";
-
-                if(IsLoggedIn()){
-                    btn2.textContent = "My Orders";
-                    btn2.href = "/orders.jsp";
-
-                    btn3.className = "btn btn-lg btn-block btn-default";
-                    btn3.textContent = "Logout";
-                    btn3.href = "#";
-                    btn3.onclick = function(){
-                        LogOut();
-                    };
-                }else{
-                    btn2.textContent = "Register";
-                    btn2.href = "/register.jsp";
-
-                    btn3.textContent = "Login";
-                    btn3.href = "/login.jsp";
-                }
-
-                document.getElementById("btn2").appendChild(btn2);
-                document.getElementById("btn3").appendChild(btn3);
-            }
-            $(document).ready(displayBtns());
-        </script>
+        <%if (success1 != null) { %>
+        <div class="alert alert-success">
+            <%out.print(success1);%> 
+        </div>
+        <%  }
+        %>
+         <%if (failure1 != null) { %>
+        <div class="alert alert-success">
+            <%out.print(failure1);%> 
+        </div>
+        <%  }
+        %>
+        <h1>Admin Menu</h1>
+        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="createUser.jsp">Create Users</a>
+            <a class="navbar-brand" href="updateUser.jsp">Update Users</a>
+            <a class="navbar-brand" href="deleteUser.jsp">Delete Users</a>
+            <br><br><br>
+            <div style="text-align: right;">
+                <form class="form-inline my-2 my-lg-0" action="readUserController.jsp" method="post">
+                <input class="form-control mr-sm-2" type="search" name="email" placeholder="enter email">
+                <input class="form-control mr-sm-2" type="search" name="phoneNumber" placeholder="enter phonenumber">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            </div>
+        </nav> 
+        <jsp:include page="/ConnServlet" flush="true" /> 
+                    
     </body>
 </html>
